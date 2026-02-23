@@ -1,0 +1,993 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+
+:root {
+  --neon-pink: #ec4899;
+  --neon-blue: #3b82f6;
+  --neon-purple: #a855f7;
+  --dark-bg: #0a0a0a;
+  --panel-bg: #111827;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: #ffffff;
+  font-family: "Press Start 2P", monospace;
+  margin: 0;
+  width: 100%;
+}
+
+/* ===== App layout ===== */
+.app-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== Drawer ===== */
+.arcade-drawer {
+  width: 15%;
+  max-width: 250px;
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #0098ff 0%,
+    #07428a 30%,
+    #071426 100%
+  );
+
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.6);
+
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 10;
+}
+
+/* Drawer logo */
+.drawer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.drawer-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drawer-logo-img {
+  width: 200px;
+  margin-bottom: 0.5rem;
+}
+
+.drawer-title {
+  font-size: 1rem;
+  margin-top: -1.5rem;
+  text-align: center;
+  animation: neonColor 4s linear infinite;
+}
+
+/* Drawer links */
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.drawer-links a,
+.drawer-links button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+
+  /* NEW */
+  border-radius: 12px;          /* circular edges */
+  width: 100%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Hover effect like Instagram PC */
+.drawer-links a:hover,
+.drawer-links button:hover {
+  color: #ff2ec4;
+  background: rgba(0, 229, 255, 0.12);  /* soft pink box */
+}
+
+/* Active click effect */
+.drawer-links a:active,
+.drawer-links button:active {
+  background: rgba(255, 46, 196, 0.25);
+}
+
+.drawer-links a,
+.drawer-links button {
+  all: unset;
+  cursor: pointer;
+
+  color: #fff;
+  font-size: 0.95rem;
+
+  display: flex;
+  align-items: center;
+
+  height: 44px;                 /* FIXED SIZE */
+  padding: 0 14px;
+  border-radius: 12px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.arcade-nav-btn {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #0098ff, #00ffff, #07428a);
+  border: none;
+  border-radius: 12px;
+  color: #000;
+  font-family: "Press Start 2P", monospace;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  /* Gradient animation */
+  background-size: 300% 300%;
+  animation: buttonGradient 5s ease infinite, neonPulse 2s ease-in-out infinite alternate;
+}
+
+/* Hover: animated neon gradient and glow */
+.arcade-nav-btn:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #ff55f7, #ff00fb, #7c017e);
+  background-size: 300% 300%;
+  animation: buttonGradient 5s ease infinite, neonPulse 2s ease-in-out infinite alternate;
+}
+
+/* Gradient movement keyframes */
+@keyframes buttonGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.arcade-nav-link {
+  all: unset;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.arcade-nav-link:hover {
+  color: #ff2ec4;
+}
+
+/* Active click effect */
+.arcade-nav-link:active,
+.arcade-nav-link:active {
+  background: rgba(255, 46, 196, 0.25);
+}
+
+/* ===== Main content area ===== */
+.app-main {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== Home background ===== */
+.home-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.home-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.home-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.397);
+  z-index: 1;
+}
+
+.home-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.arcade-hero {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 0 auto;           /* centers horizontally */
+  text-align: center;       /* centers text */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* centers children */
+  justify-content: center;
+}
+
+.arcade-title {
+  text-align: center;
+}
+
+.arcade-subtext {
+  text-align: center;
+  max-width: 600px;         /* keeps it readable */
+}
+
+/* Neon rainbow animation for heading */
+.arcade-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  animation: neonColor 4s linear infinite;
+  /* optional glow */
+}
+
+/* Keyframes for color cycling */
+@keyframes neonColor {
+  0%   { color: #ff0000; }
+  20%  { color: #ff00cc; }
+  40%  { color: #3700ff; }
+  60%  { color: #00ffe1; }
+  80%  { color: #22ff00; }
+  95% { color: #fff12e; }
+  100% { color: #ff0000; }
+}
+
+.arcade-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  background-color: #000;
+  color: white;
+  font-family: "Press Start 2P", monospace;
+  outline: none;
+}
+
+.arcade-input:focus {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.game-tile {
+  background: radial-gradient(circle at top, #1f2933, #020617);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.game-tile:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.7),
+              0 0 40px rgba(236, 72, 153, 0.4);
+}
+
+/* Tic Tac Toe Card */
+.arcade-card {
+  background: linear-gradient(
+    180deg,
+    #0098ff 0%,
+    #07428a 30%,
+    #071426 100%
+  );
+  border: 2px solid #00ffff;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+}
+
+.arcade-card2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* center horizontally & vertically */
+
+  background: linear-gradient(
+    180deg,
+    #0098ff 0%,
+    #07428a 30%,
+    #071426 100%
+  );
+  border: 2px solid #00ffff;
+  border-radius: 16px;
+  box-shadow: 0 0 20px #00ffff;
+  padding: 2rem;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+}
+
+.arcade-card-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+/* Tic Tac Toe Board */
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 133px);
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.ttt-cell {
+  width: 133px;
+  height: 133px;
+  background-color: #000;
+  color: #00ffff;
+  font-size: 2rem;
+  font-family: "Press Start 2P", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #00ffff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ttt-cell:hover {
+  background-color: #ff2ec4;
+  color: #fff;
+}
+
+.ttt-winner {
+  font-family: "Press Start 2P", monospace;
+  color: #ff2ec4;
+  margin-bottom: 1rem;
+}
+
+.arcade-button {
+  background: #ff2ec4;
+  color: #000;
+  font-family: "Press Start 2P", monospace;
+  font-weight: bold;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: 0.2s;
+}
+
+.arcade-button:hover {
+  background: #00ffff;
+  color: #000;
+}
+
+/* Snake Game Card */
+/* Snake Game Card */
+.snake-board {
+  display: grid;
+  grid-template-rows: repeat(20, 1fr); /* dynamic rows */
+  grid-template-columns: repeat(20, 1fr); /* dynamic cols */
+  gap: 1px;
+  background-color: #000;
+  border: 2px solid #00ffff;
+  width: 100%;      /* fills card width */
+  max-width: 400px; /* optional limit */
+  aspect-ratio: 1;  /* keeps it square */
+  margin: 1rem auto;
+}
+
+/* Snake cells */
+.snake-cell {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border: 1px solid #111;
+  transition: 0.1s;
+}
+
+.snake-cell.snake {
+  background-color: #ff2ec4;
+}
+
+.snake-cell.food {
+  background-color: #00ff00;
+}
+
+/* Score */
+.snake-score {
+  font-family: "Press Start 2P", monospace;
+  color: #00ffff;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Game area */
+.flappy-game {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background-color: #000;
+  overflow: hidden;
+  border: 2px solid #00ffff;
+  margin: 0 auto;
+}
+
+/* Bird */
+.flappy-bird {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff2ec4;
+  border-radius: 50%;
+  transition: top 0.1s;
+}
+
+/* Pipes */
+.flappy-pipe {
+  position: absolute;
+  width: 50px;
+  background-color: #00ff00;
+}
+
+/* Score */
+.flappy-score {
+  font-family: "Press Start 2P", monospace;
+  color: #00ffff;
+  margin-top: 1rem;
+}
+
+/* Games Section */
+.arcade-games-showcase {
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.arcade-section-title {
+  font-family: "Press Start 2P", monospace;
+  color: #ff2ec4;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Grid for games */
+.arcade-games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Each game card */
+.arcade-game-card {
+   background: linear-gradient(
+    180deg,
+    #0098ff 0%,
+    #07428a 30%,
+    #071426 100%
+  );
+  border: 2px solid #00ffff;
+  border-radius: 16px;
+  width: 180px;
+  text-align: center;
+  padding: 1rem;
+  color: white;
+  margin: 1rem;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.arcade-game-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00ffff;
+}
+
+/* Game image */
+.arcade-game-image img {
+  width: 100%;        /* fill the container width */
+  height: 100%;       /* fill the container height */
+  object-fit: cover;  /* crop/scale nicely without distortion */
+  border-radius: 12px; /* match the container’s corners */
+}
+
+.arcade-image-placeholder {
+  color: #00ffff;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.7rem;
+}
+
+/* Game name */
+.arcade-game-name {
+  font-family: "Press Start 2P", monospace;
+  color: white;
+  font-size: 0.8rem;
+}
+
+/* overlay */
+.arcade-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+
+/* modal card same as arcade-card but centered */
+.modal-card {
+  max-width: 500px;
+  width: 100%;
+  margin: 0;
+  padding: 2rem;
+  border-radius: 16px;
+  background-color: #0098ff;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 20px #00ffff;
+  position: relative;
+}
+
+/* close button */
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-card form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leaderboard-card{
+  max-width:650px;
+  margin:2rem auto;
+  padding:1.5rem;
+  border-radius:18px;
+  background:linear-gradient(180deg,#00c6ff,#001f3f);
+  box-shadow:0 0 25px #00ffff;
+  font-family:'Press Start 2P', monospace;
+}
+
+.leaderboard-title{
+  text-align:center;
+  color:#00ffff;
+  margin-bottom:1.2rem;
+}
+
+.leaderboard-table{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.leaderboard-row{
+  display:grid;
+  grid-template-columns:60px 1fr 1fr 90px;
+  padding:10px 12px;
+  border-radius:10px;
+  background:rgba(0,0,0,0.4);
+  color:white;
+  align-items:center;
+}
+
+.leaderboard-row.header{
+  background:#000;
+  color:#00ffff;
+}
+
+.leaderboard-row .player{
+  color:#00ffff;
+}
+
+.leaderboard-row .score{
+  color:#ff2ec4;
+}
+
+.leaderboard-empty{
+  text-align:center;
+  color:#fff;
+  margin-top:1rem;
+}
+.game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.game-modal{
+  background: rgba(10,10,20,0.95);
+  color: white;
+  padding: 22px 26px;
+  border-radius: 16px;
+  text-align: center;
+  min-width: 260px;
+
+  border: 2px solid #00ffff;
+
+  box-shadow:
+    0 0 10px #00ffff,
+    0 0 30px rgba(0,255,255,0.4);
+}
+
+.game-modal-avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  background: linear-gradient(135deg,#00ffff,#ff00ff);
+  image-rendering: pixelated;
+}
+
+.game-modal-name {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.game-modal-score {
+  margin-bottom: 14px;
+}
+.game-modal-actions{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+.game-modal-actions .arcade-button{
+  min-width:130px;
+}
+.profile-center-wrapper{
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.profile-card{
+  max-width:420px;
+  width:100%;
+}
+
+.settings-section{
+  margin-top:18px;
+  border-top:1px solid rgba(0,255,255,0.2);
+  padding-top:14px;
+}
+
+.settings-title{
+  color:#ff2ec4;
+  font-family:'Press Start 2P', monospace;
+  font-size:0.65rem;
+  margin-bottom:10px;
+}
+
+.settings-input{
+  width:100%;
+  padding:8px 10px;
+  margin-bottom:8px;
+  background:#000;
+  border:1px solid #00ffff;
+  color:#00ffff;
+  border-radius:6px;
+  outline:none;
+  font-family:inherit;
+}
+
+/* ---- avatar grid ---- */
+
+.avatar-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(50px,1fr));
+  gap:10px;
+  margin-top:8px;
+}
+
+.avatar-tile{
+  cursor:pointer;
+  border:2px solid transparent;
+  border-radius:10px;
+  padding:4px;
+  background:#111;
+  transition:0.2s;
+}
+
+.avatar-tile img{
+  width:100%;
+  height:100%;
+  display:block;
+  image-rendering:pixelated;
+}
+
+.avatar-tile:hover{
+  border-color:#00ffff;
+  box-shadow:0 0 10px #00ffff;
+}
+/* make modal scrollable */
+.modal-card{
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.settings-status-msg{
+  margin:10px 0 6px 0;
+  color:#00ffff;
+  font-size:0.8rem;
+  text-align:center;
+}
+
+.leaderboard-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem; /* space from top */
+}
+
+.game-select {
+  width: 100%;
+  margin-bottom: 16px;
+  background: #000;
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  padding: 8px;
+  border-radius: 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.game-select:hover {
+  background: #00111f;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.65rem;
+}
+
+th, td {
+  padding: 6px;
+  text-align: left;
+}
+
+tbody tr:nth-child(1) {
+  color: #ffd700; /* gold */
+}
+
+tbody tr:nth-child(2) {
+  color: #c0c0c0; /* silver */
+}
+
+tbody tr:nth-child(3) {
+  color: #cd7f32; /* bronze */
+}
+
+/* Optional: highlight rows on hover */
+tbody tr:hover {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+/* ===== Settings Drawer (slides out of navbar) ===== */
+.settings-modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: -800px; /* hidden offscreen */
+  width: 600px;
+  height: 100vh;
+  padding: 20px 20px 20px 300px;
+  background: linear-gradient(180deg, #0098ff 0%, #07428a 30%, #071426 100%);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: left 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 5;
+}
+
+.settings-modal-wrapper.open {
+  left: 0; /* slides in */
+}
+
+/* Overlay */
+.arcade-modal-overlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100vh;
+  background: linear-gradient(-90deg, #00000000 0%, #00000078 30%, #000000 100%);
+  z-index: 4;
+  transition: width 0.35s ease;
+}
+
+.arcade-modal-overlay2.open {
+  width: 100%;
+}
+
+.settings-modal-wrapper input,
+.settings-modal-wrapper textarea,
+.settings-modal-wrapper select {
+  box-sizing: border-box; /* ensures padding is inside width */
+}
+
+/* Video grid inside drawer */
+.settings-video-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Each video tile */
+.settings-video-tile {
+  width: 150px;
+  height: 100px;
+  border: 2px solid #00ffff;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.settings-video-tile:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #ff2ec4;
+}
+
+/* Video inside tile */
+.settings-video-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Video name overlay */
+.settings-video-name {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  color: white;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.6rem;
+  text-shadow: 0 0 4px black;
+}
+
+.auth-transition {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #0098ff 0%,
+    #07428a 30%,
+    #071426 100%
+  );
+  z-index: 10000; /* 👑 top of the food chain */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-transition-box {
+  text-align: center;
+  color: #00ffff;
+  font-family: "Press Start 2P", monospace;
+}
+
+.glitch {
+  font-size: 22px;
+  animation: glitch 1s infinite;
+}
+
+.blink {
+  margin-top: 20px;
+  font-size: 12px;
+  animation: blink 1.2s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #ff00ff; }
+  25% { text-shadow: -2px 0 #00ffff; }
+  50% { text-shadow: 2px 2px #ff00ff; }
+  75% { text-shadow: -2px -2px #00ffff; }
+  100% { text-shadow: 2px 0 #ff00ff; }
+}
+
+.difficulty-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.difficulty-btn {
+  background-color: #ff2ec4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 5px;
+}
+
+.difficulty-btn:hover {
+  background-color: #d41f9f;
+  transform: scale(1.05);
+}
+
+.difficulty-btn.active {
+  background-color: #00ff00;
+  color: black;
+  font-weight: bold;
+}
+
+.difficulty-btn:focus {
+  outline: none;
+}
+
+
+ 
